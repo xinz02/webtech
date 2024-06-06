@@ -1,6 +1,24 @@
 <template>
     
-<nav-bar></nav-bar>
+<!-- <nav-bar></nav-bar> -->
+<div class="navbar">
+            <nav class="sticky" id="sticky">
+                <ul>
+                    <li><router-link to="/">HOME</router-link></li>
+                    <li><a href= "#about">ABOUT US</a></li>
+                    <li><a href="#services">SERVICES</a></li>
+                    <li><a href="#contact">CONTACT US</a></li>
+                    <li><router-link to="/login">MY APPOINTMENT</router-link></li>
+                    <li><router-link to="/login">LOG IN</router-link></li>
+                    <li class="image-li"><img class="navLogo" src="../assets/images/logo-removebg.png" alt="ProCare Dental Clinic"></li>
+                </ul>
+            </nav>
+            <nav class="bookApp">
+                <router-link to="/login">BOOK AN APPOINTMENT</router-link>
+            </nav>
+        </div>
+
+
         <div class="about" id="about">
             <div class="container_about">
                 <img src="../assets/images/AboutUs.jpg" alt="Dentist">
@@ -52,7 +70,7 @@
                     <p>We use and recommend Invisalign braces for better results of teeth alignment.</p>
                 </div>
             </div>
-            <a href="Login.php"><button>BOOK AN APPOINTMENT</button></a>
+            <router-link to="/login"><button>BOOK AN APPOINTMENT</button></router-link>
         </div>
 
         <div class="reserve">
@@ -62,7 +80,7 @@
                 <p>Seeking exceptional dental treatments with minimal wait times? 
                     Reserve your preferred time slot, effortlessly walk in at your appointed time, 
                     and receive prioritized treatments without any additional charges.</p>
-                <a href="Login.php"><button class="btn">Reserve My Slot Now!</button></a>
+                    <router-link to="/login"><button class="btn">Reserve My Slot Now!</button></router-link>
                 </div>
                 <img src="../assets/images/Reserve.jpg" alt="Reserve a slot!">
             </div>
@@ -118,7 +136,148 @@
         </div>
 </template>
 
+
+
 <style scoped>
+
+/*Navigation bar*/
+.navbar{
+    width:100%;
+    height: 80vh;
+    background-image: url(../assets/images/dashboard_main.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.sticky
+{
+    position: -webkit-sticky;
+    position: fixed;
+    top: 0;
+    height: auto;
+    transition: background-color 0.5s ease;
+    align-items: center;
+    z-index: +1;
+}
+
+.transparent
+{
+    background-color: transparent;
+}
+
+.change-color
+{
+    background-color: rgb(111, 146, 177);
+    box-shadow: 0px 3px 4px;
+}
+
+nav
+{
+    width: 100%;
+    height: 50px;
+    background-color: transparent;
+    line-height: 50px;
+}
+
+nav ul{
+    float: right;
+    margin-right: 30px;
+}
+
+nav ul li{
+    list-style-type: none;
+    display: inline-block;
+    transition: 0.7s all;
+    margin-top: 10px;
+    align-items: center;
+}
+
+nav ul li:hover{
+    background-color:rgba(13, 19, 68, 0.827);
+}
+
+nav ul li a:hover {
+    color: white;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: rgba(13, 19, 68, 0.827);
+    padding: 20px;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.navLogo
+{
+    display: none;
+    position: fixed;
+    top: 5%;
+    left: 50px;
+    transform: translateY(-50%);
+    width: 260px;
+    height: 80px;
+    float: left;
+}
+
+.image-li
+{
+    display: none;
+}
+
+.image-li .navLogo
+{
+    display: inline-block;
+}
+
+.bookApp
+{
+    display: block;
+    width: auto;
+    padding: 5px 40px 5px 40px;
+    border-radius: 5px;
+    box-shadow: 0px 3px 5px;
+    margin-left: 65px;
+    background-color: #fff;
+    position: absolute;
+    top: 65vh;
+}
+
+nav a{
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+    color: rgba(13, 19, 68, 0.827);
+}
+
+a button
+{
+    font-weight: bold;
+    font-size: 22px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 60px;
+    padding: 5px 30px 5px 30px;
+    border-radius: 5px;
+    box-shadow: 2px 5px 10px #888;
+    margin: auto;
+    margin-top: 80px;
+    background-color: rgba(13, 19, 68, 0.915);
+}
+
+a
+{
+    text-decoration: none;
+}
+
+
+
 *{
     margin:0;
     padding:0;

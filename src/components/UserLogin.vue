@@ -1,5 +1,6 @@
 <template>
-    <div class="form-container"></div>
+    <div class="body">
+        <!-- <div class="form-container"></div> -->
     <form action="" method="post">
         <div class="login-container">
             <h1>Login Page</h1>
@@ -20,12 +21,22 @@
             <div class="login-field">
                 <p><a href="SignUp.php"><strong>Don't have an account?</strong></a></p>
             </div>
+
         </div>
     </form>
+    </div>
+    
 </template>
 
+<script>
+export default {
+  name: 'UserLogin'
+};
+</script>
+
 <style scoped>
-body {
+
+.body {
     width: 100%;
     height: 100vh;
     margin: 0;
@@ -33,21 +44,22 @@ body {
     color: #f5f6f7;
     font-family: Tahoma;
     font-size: 16px;
-    background-image: url('images/bg.png');
+    background-image: url('../assets/images/bg.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-}
+    
+  }
   
-h1 {
+  h1 {
     padding-top: 35px;
     margin: 1em auto;
     text-align: center;
     color: #4e8fc4;
     font-family: sans-serif;
-}
+  }
   
-.login-container {
+  .login-container {
     width: 60vw;
     max-width: 500px;
     min-width: 300px;
@@ -56,50 +68,55 @@ h1 {
     background-color: #ffffff; /* Add this line to set the background color */
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-}
+    
+  }
   
-label{
-    color: #4e8fc4;
-    display: block;
-    margin: 0.5rem 0;
-    padding-left: 25px;
-    font-family: sans-serif;
-}
+  label{
+      color: #4e8fc4;
+      display: block;
+      margin: 0.5rem 0;
+      padding-left: 25px;
+      font-family: sans-serif;
+  }
   
-.form-container {
+  .form-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 140px;
-}
+  }
   
-/* Login container styles */
-.login-field {
-    width: 60vw;
+  
+  
+  /* Login container styles */
+  .login-field {
+  width: 60vw;
     max-width: 500px;
     min-width: 300px;
     padding-bottom: 2em;
     align-items: center;
     vertical-align: middle;
-}
+    
+  }
   
-.login-field label {
+  .login-field label {
     display: block;
     margin-bottom: 5px;
-}
+  }
   
-.login-field input[type="text"],
-.login-field input[type="password"] {
-    width: 90%;
+  .login-field input[type="text"],
+  .login-field input[type="password"] {
+  width: 90%;
     padding: 10px;
     border: 1px solid #e6e0e0;
     border-radius: 4px;
     box-sizing: border-box;
     margin: 0 auto;
     display: block;
-}
+    
+  }
   
-.login-field input[type="submit"] {
+  .login-field input[type="submit"] {
     width: 60%;
     background-color: #627ea8;
     color: #ffffff;
@@ -110,43 +127,44 @@ label{
     border-radius: 4px;
     margin: 0 auto;
     display: block;
-}
+  }
   
-.login-field input[type="submit"]:hover {
+  .login-field input[type="submit"]:hover {
     background-color: #215f83;
-}
+  }
   
-.login-field p {
+  .login-field p {
     text-align: center;
-}
+  }
   
-.login-field p a {
+  .login-field p a {
     text-decoration: none;
     color: #89a4cc;
-}
+  }
   
-.login-field p a:hover {
+  .login-field p a:hover {
     text-decoration: underline;
     color: #215f83;
-}
+  }
   
-.error {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    justify-content: center;
-    border: 1px solid black;
-    background-color: lightcoral;
-    color: #000000;
-    width: 80%;
-    max-width: 400px;
-    height: 50px;
-}
+  .error {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: center;
+      border: 1px solid black;
+      background-color: lightcoral;
+      color: #000000;
+      width: 80%;
+      max-width: 400px;
+      height: 50px;
+    }
   
-.error p {
-    font-size: 15px;
-    padding: 7px auto;
-}
+    .error p {
+      font-size: 15px;
+      padding: 7px auto;
+    }
+  
 </style>

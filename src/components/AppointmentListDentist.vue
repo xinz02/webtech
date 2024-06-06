@@ -7,7 +7,10 @@
         </div>
   
         <div class="pInfo">
-          <img :src="avatarSrc" alt="Avatar" />
+          <!-- <img :src="avatarSrc" alt="Avatar" /> -->
+          <img v-if="dentist.gender == 'F'" src="../assets/images/women_avatar.png">
+         
+          <img v-else src="../assets/images/man_avatar.png">
           <div class="info">
             <h3><u>Dentist Info</u></h3>
             <table>
@@ -102,9 +105,9 @@
       };
     },
     computed: {
-      avatarSrc() {
-        return this.dentist.gender === 'F' ? '../assets/images/women_avatar.PNG' : '../assets/images/man_avatar.PNG';
-      }
+      // avatarSrc() {
+      //   return this.dentist.gender === 'F' ? '../assets/images/women_avatar.PNG' : '../assets/images/man_avatar.PNG';
+      // }
     },
     methods: {
       returnToAppList() {

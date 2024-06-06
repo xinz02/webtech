@@ -35,10 +35,10 @@
 </template>
 
 <script>
-    function redirectToAppointmentList() {
-        var selectedUser = "<?php echo $selectedUser; ?>";
-        window.location.href = "appointmentlist_user.php?userID=" + selectedUser;
-    }
+    // function redirectToAppointmentList() {
+    //     var selectedUser = "<?php echo $selectedUser; ?>";
+    //     window.location.href = "appointmentlist_user.php?userID=" + selectedUser;
+    // }
 </script>
 
 <style scoped>
@@ -50,7 +50,7 @@ body {
     color: #f5f6f7;
     font-family: Tahoma;
     font-size: 16px;
-    background-image: url('images/bookApp.jpeg');
+    background-image: url('../assets/images/bookApp.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

@@ -1,82 +1,38 @@
+
 <template>
     <div class="navbar">
-            <nav class="sticky" id="sticky">
-                <ul>
-                    <li><a href="dashboard.html">HOME</a></li>
-                    <li><a href= "#about">ABOUT US</a></li>
-                    <li><a href="#services">SERVICES</a></li>
-                    <li><a href="#contact">CONTACT US</a></li>
-                    <li><a href="Login.php">MY APPOINTMENT</a></li>
-                    <li><a href="Login.php">LOG IN</a></li>
-                    <li class="image-li"><img class="navLogo" src="../assets/images/logo-removebg.png" alt="ProCare Dental Clinic"></li>
-                </ul>
-            </nav>
-            <nav class="bookApp">
-                <a href="Login.php">BOOK AN APPOINTMENT</a>
-            </nav>
-        </div>
+        <nav>
+            <ul>
+                <li><a href="dashboard_loggedin.html">HOME</a></li>
+                <li><a href= "dashboard_loggedin.html#about">ABOUT US</a></li>
+                <li><a href="dashboard_loggedin.html#services">SERVICES</a></li>
+                <li><a href="dashboard_loggedin.html#contact">CONTACT US</a></li>
+                <li><a href="#">MY APPOINTMENT</a></li>
+                <li><a href="logout.php">LOG OUT</a></li>
+                <li class="navLogo"><img src="../assets/images/logo-removebg.png" alt="ProCare Dental Clinic"></li>
+            </ul>
+        </nav>
+    </div>
 </template>
 
-<script>
-window.addEventListener('scroll', function()
-{
-    var stickyDiv = document.getElementById('sticky');
-    var scrollPosition = window.scrollY;
-    var imageLi = document.querySelector(".image-li");
-
-    if(scrollPosition > 0)
-    {
-        stickyDiv.classList.remove('transparent');
-        stickyDiv.classList.add('change-color');
-        imageLi.style.display = 'list-item';
-    }
-    else
-    {
-        stickyDiv.classList.remove('change-color');
-        stickyDiv.classList.add('transparent');
-        imageLi.style.display = 'none';
-    }
-})
-</script>
-
 <style scoped>
-/*Navigation bar*/
+*{
+    margin:0;
+    padding:0;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 .navbar{
-    width:100%;
-    height: 80vh;
-    background-image: url(../assets/images/dashboard_main.png);
-    background-size: cover;
-    background-position: center;
-}
-
-.sticky
-{
-    position: -webkit-sticky;
-    position: fixed;
-    top: 0;
-    height: auto;
-    transition: background-color 0.5s ease;
-    align-items: center;
-    z-index: +1;
-}
-
-.transparent
-{
-    background-color: transparent;
-}
-
-.change-color
-{
-    background-color: rgb(111, 146, 177);
-    box-shadow: 0px 3px 4px;
+    width: 100%;
 }
 
 nav
 {
     width: 100%;
-    height: 50px;
-    background-color: transparent;
+    height: 70px;
     line-height: 50px;
+    background-color: rgb(111, 146, 177);
+    box-shadow: 0px 3px 4px;
 }
 
 nav ul{
@@ -110,70 +66,31 @@ nav ul li a{
 
 .navLogo
 {
-    display: none;
+    display: list-item;
     position: fixed;
-    top: 5%;
+    top: 4%;
     left: 50px;
-    transform: translateY(-50%);
     width: 260px;
     height: 80px;
+    transform: translateY(-50%);
     float: left;
 }
 
-.image-li
+.navLogo img
 {
-    display: none;
-}
-
-.image-li .navLogo
-{
-    display: inline-block;
-}
-
-.bookApp
-{
-    display: block;
-    width: auto;
-    padding: 5px 40px 5px 40px;
-    border-radius: 5px;
-    box-shadow: 0px 3px 5px;
-    margin-left: 65px;
-    background-color: #fff;
-    position: absolute;
-    top: 65vh;
+    width: 260px;
+    height: 80px;
 }
 
 nav a{
     font-weight: bold;
     font-size: 20px;
     text-decoration: none;
-    color: rgba(13, 19, 68, 0.827);
-}
-
-a button
-{
-    font-weight: bold;
-    font-size: 22px;
-    text-decoration: none;
-    cursor: pointer;
-    color: #fff;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    height: 60px;
-    padding: 5px 30px 5px 30px;
-    border-radius: 5px;
-    box-shadow: 2px 5px 10px #888;
-    margin: auto;
-    margin-top: 80px;
-    background-color: rgba(13, 19, 68, 0.915);
+    color: rgba(41, 46, 61, 0.827);
 }
 
 a
 {
     text-decoration: none;
 }
-
 </style>

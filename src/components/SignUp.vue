@@ -59,7 +59,7 @@
         </form>
 </template>
 
-<script>
+<!-- <script>
 function showErrorIcon() {
     echo "<img style='vertical-align: middle' src='images/error.png' alt='Error'>";
 }
@@ -155,7 +155,7 @@ if (!empty($_POST)) {
         echo "</div>";
         //echo "<script> clearForm(); </script>";
     }
-</script>
+</script> -->
 
 <style scoped>
 body {
