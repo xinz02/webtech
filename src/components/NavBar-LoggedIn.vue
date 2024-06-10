@@ -6,8 +6,8 @@
                 <li><a href= "/#about">ABOUT US</a></li>
                 <li><a href="/#services">SERVICES</a></li>
                 <li><a href="/#contact">CONTACT US</a></li>
-                <li><a href="/login">MY APPOINTMENT</a></li>
-                <li><a href="/login">LOG IN</a></li>
+                <li><a href="#">MY APPOINTMENT</a></li>
+                <li><a href="/">LOG OUT</a></li>
                 <li class="image-li"><img class="navLogo" src="../assets/images/logo-removebg.png" alt="ProCare Dental Clinic"></li>
             </ul>
         </nav>

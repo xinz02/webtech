@@ -1,8 +1,7 @@
 <template>
-    
-<!-- <nav-bar></nav-bar> -->
-<div class="navbar">
-            <nav class="sticky" id="sticky">
+        <div class="navbar">
+            <nav-bar></nav-bar>
+            <!-- <nav class="sticky" id="sticky">
                 <ul>
                     <li><router-link to="/">HOME</router-link></li>
                     <li><a href= "#about">ABOUT US</a></li>
@@ -12,7 +11,7 @@
                     <li><router-link to="/login">LOG IN</router-link></li>
                     <li class="image-li"><img class="navLogo" src="../assets/images/logo-removebg.png" alt="ProCare Dental Clinic"></li>
                 </ul>
-            </nav>
+            </nav> -->
             <nav class="bookApp">
                 <router-link to="/login">BOOK AN APPOINTMENT</router-link>
             </nav>
@@ -39,7 +38,7 @@
             <div class="container_services">
                 <div class="service">
                     <img src="../assets/images/ComesticNAesthetic.jpg" alt="Cosmestic/Aesthetic Dentistry">
-                    <h3>Cosmestic/Aesthetic Dentistry</h3>
+                    <h3>Aesthetic Dentistry</h3>
                     <p>We offer affordable tooth bleaching and alignment treatments you may need.</p>
                 </div>
                 <div class="service">
@@ -119,7 +118,7 @@
             </div>
             <div class="container_contact">
                 <div class="map">
-                    <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15953.369817514184!2d103.6187624871582!3d1.558468100000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da7154a58c424b%3A0x8c133d77584b5ff8!2sUniversiti%20Teknologi%20Malaysia!5e0!3m2!1sen!2smy!4v1687936537109!5m2!1sen!2smy" width="100%" height="415px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15953.369817514184!2d103.6187624871582!3d1.558468100000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da7154a58c424b%3A0x8c133d77584b5ff8!2sUniversiti%20Teknologi%20Malaysia!5e0!3m2!1sen!2smy!4v1687936537109!5m2!1sen!2smy" width="100%" height="415px" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     <a href="https://goo.gl/maps/zuJkD84ouQAnvz6x6" target="_blank"><button id="map-btn">FIND US</button></a>
                 </div>
                 <div class="contactinfo">
@@ -127,7 +126,7 @@
                     <h3>ADDRESS</h3>
                     <p>Jalan Iman, 81310 Skudai, Johor</p>
                     <p>Call us today: +074345566</p>
-                    <p>Email us: <a href="mailto:keewei@graduate.utm.my" target="_blank">keewei@graduate.utm.my</a></p>
+                    <p>Email us: <a href="mailto:keewei@graduate.utm.my" target="_blank">procareDental@gmail.com</a></p>
                     <h3>BUSINESS HOURS</h3>
                     <p>Monday - Friday: 8.00 am to 5.00 pm</p>
                     <p>Saturday: 8.00 am to 1.00 pm</p>
@@ -154,7 +153,7 @@
     position: -webkit-sticky;
     position: fixed;
     top: 0;
-    height: auto;
+    height: 70px;
     transition: background-color 0.5s ease;
     align-items: center;
     z-index: +1;
@@ -175,7 +174,7 @@ nav
 {
     width: 100%;
     height: 50px;
-    background-color: transparent;
+    background-color: rgb(111, 146, 177);
     line-height: 50px;
 }
 
@@ -210,19 +209,13 @@ nav ul li a{
 
 .navLogo
 {
-    display: none;
     position: fixed;
     top: 5%;
     left: 50px;
     transform: translateY(-50%);
     width: 260px;
-    height: 80px;
+    height: 70px;
     float: left;
-}
-
-.image-li
-{
-    display: none;
 }
 
 .image-li .navLogo
@@ -374,7 +367,7 @@ a
 {
     width: 280px;
     height: 250px;
-    margin: 30px 20px 30px 34px;
+    margin: 30px 20px 30px 35px;
     box-shadow: 0px 6px 8px #636363a2 ;
 }
 
@@ -384,14 +377,14 @@ a
     font-family: Georgia, 'Times New Roman', Times, serif;
     color: rgba(13, 19, 68, 0.915);
     font-weight: bold;
-    margin: 0px 0px 10px 30px;
+    margin: 0px 0px 10px 0px;
 }
 
 .service p
 {
     font-size: 20px;
     color:rgb(95, 132, 171);
-    margin: 0px 20px 30px 30px;
+    margin: 0px 20px 30px 20px;
 }
 
 /*Reserve a slot*/
@@ -513,7 +506,6 @@ a
 .list li:before
 {
     content:"";
-    display: inline-block;
     width: 18px;
     height: 18px;
     background-image: url(../assets/images/tick.png);

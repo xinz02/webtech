@@ -1,31 +1,46 @@
 <template>
-    <div class="body">
-        <!-- <div class="form-container"></div> -->
+  <body>
     <form action="" method="post">
+      <div class="d-flex align-items-center justify-content-center vh-100">
         <div class="login-container">
-            <h1>Login Page</h1>
-            <div class="login-field">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required placeholder="Username">
+          <h1 class="my-5 fw-bold">LOGIN</h1>
+          <div class="login-field row mx-3">
+            <div class="col-2">
+              <label for="username">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" class="bi bi-person-fill" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+              </svg>
+            </label>
             </div>
-
-            <div class="login-field">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required placeholder="Password">
+            <div class="col-10 p-0">
+              <input type="text" id="username" name="username" required placeholder="Username" class="py-2 px-3">
             </div>
+          </div>
 
-            <div class="login-field">
-                <input type="submit" value="Log In">
+          <div class="login-field row mx-3">
+            <div class="col-2">
+              <label for="password">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="23" class="bi bi-shield-lock-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.8 11.8 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7 7 0 0 0 1.048-.625 11.8 11.8 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.54 1.54 0 0 0-1.044-1.263 63 63 0 0 0-2.887-.87C9.843.266 8.69 0 8 0m0 5a1.5 1.5 0 0 1 .5 2.915l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99A1.5 1.5 0 0 1 8 5"/>
+              </svg>
+              </label>
             </div>
-
-            <div class="login-field">
-                <p><a href="SignUp.php"><strong>Don't have an account?</strong></a></p>
+            <div class="col-10 p-0">
+              <input type="password" id="password" name="password" required placeholder="Password" class="py-2 px-3">
             </div>
+          </div>
 
+          <div class="login-field mx-3 mt-2 pb-4">
+            <input type="submit" value="Log In">
+          </div>
+
+          <div class="login-field mx-3 p-0 mb-5">
+            <p><a href="/signup"><strong>Don't have an account?</strong></a></p>
+          </div>
         </div>
+      </div>
     </form>
-    </div>
-    
+  </body>
 </template>
 
 <script>
@@ -35,12 +50,10 @@ export default {
 </script>
 
 <style scoped>
-
-.body {
+  body {
     width: 100%;
     height: 100vh;
     margin: 0;
-    background-color: #c2e6eb;
     color: #f5f6f7;
     font-family: Tahoma;
     font-size: 16px;
@@ -48,72 +61,44 @@ export default {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    
   }
   
   h1 {
-    padding-top: 35px;
-    margin: 1em auto;
     text-align: center;
     color: #4e8fc4;
     font-family: sans-serif;
   }
   
   .login-container {
-    width: 60vw;
-    max-width: 500px;
-    min-width: 300px;
-    margin: 0 auto;
-    
-    background-color: #ffffff; /* Add this line to set the background color */
+    max-width: auto;
+    min-width: auto;
+    background-color: #ffffff;
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    
   }
   
-  label{
-      color: #4e8fc4;
-      display: block;
-      margin: 0.5rem 0;
-      padding-left: 25px;
-      font-family: sans-serif;
-  }
-  
-  .form-container {
+  .form{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 140px;
+    height: auto;
   }
   
-  
-  
-  /* Login container styles */
   .login-field {
-  width: 60vw;
-    max-width: 500px;
-    min-width: 300px;
+    width: 28vw;
+    max-width: auto;
+    min-width: auto ;
     padding-bottom: 2em;
     align-items: center;
-    vertical-align: middle;
-    
-  }
-  
-  .login-field label {
-    display: block;
-    margin-bottom: 5px;
+    justify-content: center;
   }
   
   .login-field input[type="text"],
   .login-field input[type="password"] {
-  width: 90%;
-    padding: 10px;
+    width: 91%;
     border: 1px solid #e6e0e0;
     border-radius: 4px;
-    box-sizing: border-box;
-    margin: 0 auto;
-    display: block;
-    
+    float: inline-start;
   }
   
   .login-field input[type="submit"] {

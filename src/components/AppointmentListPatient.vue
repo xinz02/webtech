@@ -1,35 +1,47 @@
-<!-- <template>
-    <nav-bar></nav-bar>
-    <div class="container">
-      <div class="pInfo">
-        <img :src="avatarSrc" alt="Avatar" />
-        <div class="info">
-          <table>
-            <tr>
-              <th>Name</th>
-              <td>{{ patient.name }}</td>
-            </tr>
-            <tr>
-              <th>Age</th>
-              <td>{{ patient.age }}</td>
-            </tr>
-            <tr>
-              <th>Gender</th>
-              <td>{{ genders[patient.gender] }}</td>
-            </tr>
-            <tr>
-              <th>Email</th>
-              <td>{{ patient.email }}</td>
-            </tr>
-            <tr>
-              <th>Phone</th>
-              <td>{{ patient.phone }}</td>
-            </tr>
-          </table>
+<template>
+  <nav-bar-logged></nav-bar-logged>
+  <div class="container-fluid p-0 d-flex">
+    <div class="pInfo col-3">
+      <h4 class="fw-bold text-start mt-2 mb-3">Personal Information</h4>
+      <hr>
+      <div class="my-5 text-center">
+        <img v-if="patient.gender == 'F'" src="../assets/images/women_avatar.png">
+        <img v-else src="../assets/images/man_avatar.png">
+      </div>
+
+      <div class="info text-start">
+        <div class="row mb-3">
+          <div class="col-4 fw-bold">Name</div>
+          <div class="col-8">: {{ patient.name }}</div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-4 fw-bold">Age</div>
+          <div class="col-8">: {{ patient.age }}</div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-4 fw-bold">Gender</div>
+          <div class="col-8">: {{ genders[patient.gender] }}</div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-4 fw-bold">Email</div>
+          <div class="col-8">: {{ patient.email }}</div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-4 fw-bold">Hp No</div>
+          <div class="col-8">: {{ patient.phone }}</div>
         </div>
       </div>
-      <div class="appointmentList">
-        <table>
+    </div>
+
+    <div class="appointmentInfo col-9 d-flex justify-content-start px-5">
+      <h4 class="fw-bold text-center mb-0 mt-2">My Appointments</h4>
+      <hr>
+      <table class="table table-bordered mt-4">
+        <thead>
           <tr>
             <th>ID</th>
             <th>Date</th>
@@ -38,22 +50,33 @@
             <th>Doctor</th>
             <th>Actions</th>
           </tr>
+        </thead>
+        <tbody>
           <tr v-for="appointment in appointments" :key="appointment.id">
-            <td>{{ appointment.id }}</td>
-            <td>{{ appointment.date }}</td>
-            <td>{{ appointment.time }}</td>
-            <td>{{ appointment.category }}</td>
-            <td>{{ appointment.doctor }}</td>
-            <td>
-              <button @click="deleteAppointment(appointment.id)">Cancel</button>
+            <td class="align-middle">{{ appointment.id }}</td>
+            <td class="align-middle">{{ appointment.date }}</td>
+            <td class="align-middle">{{ appointment.time }}</td>
+            <td class="align-middle">{{ appointment.category }}</td>
+            <td class="align-middle">{{ appointment.doctor }}</td>
+            <td class="align-middle">
+              <button @click="confirmDeleteAppointment(appointment.id)" id="cancel">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-x-square" viewBox="0 0 16 16">
+                  <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                </svg>
+              </button>
             </td>
           </tr>
-        </table>
-      </div>
-      <div class="addApp-container">
-        <button class="addApp" @click="addAppointment">Add Appointment</button>
-      </div>
+        </tbody>
+      </table>
     </div>
+
+    <button class="addApp me-3 mb-2" @click="redirectToAddPage">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-plus-lg" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+      </svg>
+    </button>
+  </div>
 </template>
 
 <script>
@@ -88,15 +111,15 @@ export default {
         }
       ]
     };
-  },    computed: {
-      avatarSrc() {
-        return this.patient.gender === 'F' ? '../assets/images/women_avatar.PNG' : '../assets/images/man_avatar.PNG';
-      }
-    },
+  },
   methods: {
-    addAppointment() {
-      // Logic to add an appointment
-      console.log("Adding appointment...");
+    redirectToAddPage() {
+      this.$router.push({ path: '/addAppointment' });
+    },
+    confirmDeleteAppointment(id) {
+      if (window.confirm('Are you sure you want to cancel this appointment?')) {
+        this.deleteAppointment(id);
+      }
     },
     deleteAppointment(id) {
       // Logic to delete an appointment
@@ -107,526 +130,89 @@ export default {
 };
 </script>
 
-<style>
-        * {
-            margin: 0;
-            padding: 0;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        }
+<style scoped>
+body {
+  height: 100vh;
+  margin: 0;
+  width: 100%;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
 
-        .sticky {
-            position: -webkit-sticky;
-            position: sticky;
-            top: 0;
-            height: 75px;
-            align-items: center;
-            background-color: rgb(111, 146, 177);
-        }
+.container-fluid {
+  display: flex;
+  margin-top: 75px;
+  height: calc(100vh - 75px);
+}
 
-        nav {
-            width: 100%;
-            height: 50px;
-            background-color: transparent;
-            line-height: 50px;
-        }
+.pInfo {
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 5px 15px rgb(0, 0, 0);
+  padding: 20px;
+}
 
-        nav ul {
-            float: right;
-            margin-right: 30px;
-        }
+.pInfo img {
+  width: 120px;
+  height: auto;
+}
 
-        nav ul li {
-            list-style-type: none;
-            display: inline-block;
-            transition: 0.7s all;
-            margin-top: 10px;
-            align-items: center;
-        }
+.appointmentInfo {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
 
-        nav ul li:hover {
-            background-color: rgba(13, 19, 68, 0.827);
-        }
+.appointmentInfo .table {
+  width: 100%;
+  margin: 0;
+}
 
-        nav ul li a:hover {
-            color: white;
-        }
+.appointmentInfo .table th,
+.appointmentInfo .table td {
+  padding: 10px;
+  text-align: center;
+}
 
-        nav ul li a {
-            text-decoration: none;
-            color: rgba(13, 19, 68, 0.827);
-            padding: 20px;
-            font-size: 18px;
-            font-weight: normal;
-        }
+.appointmentInfo th,
+.appointmentInfo td {
+  border: solid 1px #0000003f;
+}
 
-        .navLogo {
-            position: fixed;
-            top: 1%;
-            left: 50px;
-            width: 260px;
-            height: 80px;
-            float: left;
-        }
+.addApp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border: none;
+  background-color: #627ea8;
+  border-radius: 50%;
+  box-shadow: 0 5px 15px rgb(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
 
-        .image-li .navLogo {
-            display: inline-block;
-        }
+.addApp img {
+  width: 30px;
+  height: 30px;
+}
 
-        .bookApp {
-            display: block;
-            width: auto;
-            padding: 5px 40px 5px 40px;
-            border-radius: 5px;
-            box-shadow: 0px 3px 5px;
-            margin-left: 65px;
-            background-color: #fff;
-            position: absolute;
-            top: 65vh;
-        }
+.addApp:hover {
+  background-color: #215f83;
+}
 
-        nav a {
-            font-weight: bold;
-            font-size: 20px;
-            text-decoration: none;
-            color: rgba(13, 19, 68, 0.827);
-        }
+.addApp img:hover {
+  transform: scale(1.1);
+}
 
-        a button {
-            font-weight: bold;
-            font-size: 22px;
-            text-decoration: none;
-            cursor: pointer;
-            color: #fff;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: auto;
-            height: 60px;
-            padding: 5px 30px 5px 30px;
-            border-radius: 5px;
-            box-shadow: 2px 5px 10px #888;
-            margin: auto;
-            margin-top: 80px;
-            background-color: rgba(13, 19, 68, 0.915);
-        }
+button {
+  border: none;
+  background: none;
+}
 
-        a {
-            text-decoration: none;
-        }
-
-      .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 50px;
-   }
-
-   .title {
-    padding-top: 30px;
-      text-align: center;
-      margin-bottom: 30px;
-   }
-
-   .pInfo {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      background-color: rgba(255,255,255,.5);
-   }
-
-   .pInfo img {
-      width: 150px;
-      height: auto;
-      margin-right: 20px;
-   }
-
-
-
-
-   .info th {
-      text-align: left;
-      width: 150px;
-      padding-right: 10px;
-   }
-
-
-   .addApp-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-   }
-
-   .addApp {
-    width: 200px;
-    background-color: #627ea8;
-    color: #ffffff;
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 4px;
-    margin: 0 auto;
-    display: inline-block
-   }
-
-   .addApp:hover {
-        text-decoration: underline;
-        color: #215f83;
-   }
-
-   body{
-        background-image: url(../assets/images/myAppBg.jpg);
-        
-        
-   }
-
-
-   table{
-      justify-content: center;
-      margin: auto;
-      border-collapse: collapse;
-      
-      
-   }
-
-   .info table{
-    border:none;
-   }
-
-   
-
-   .appointmentList table,th,td{
-    padding: 10px;
-    
-   }
-
-   .appointmentList th,.appointmentList td{
-    border: solid 2px black;
-   }
-
-   .appointmentList{
-    padding-top: 30px;
-   }
-
-
-    </style> -->
-
-    <template>
-      <nav-bar></nav-bar>
-      <div class="container">
-        <div class="pInfo">
-          <!-- <img :src="avatarSrc" alt="Avatar" /> -->
-          <img v-if="patient.gender == 'F'" src="../assets/images/women_avatar.png">
-          <!-- <img src="../assets/images/man_avatar.PNG"> -->
-          <img v-else src="../assets/images/man_avatar.png">
-          <div class="info">
-            <table>
-              <tr>
-                <th>Name</th>
-                <td>{{ patient.name }}</td>
-              </tr>
-              <tr>
-                <th>Age</th>
-                <td>{{ patient.age }}</td>
-              </tr>
-              <tr>
-                <th>Gender</th>
-                <td>{{ genders[patient.gender] }}</td>
-              </tr>
-              <tr>
-                <th>Email</th>
-                <td>{{ patient.email }}</td>
-              </tr>
-              <tr>
-                <th>Phone</th>
-                <td>{{ patient.phone }}</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div class="appointmentList">
-          <table>
-            <tr>
-              <th>ID</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Category</th>
-              <th>Doctor</th>
-              <th>Actions</th>
-            </tr>
-            <tr v-for="appointment in appointments" :key="appointment.id">
-              <td>{{ appointment.id }}</td>
-              <td>{{ appointment.date }}</td>
-              <td>{{ appointment.time }}</td>
-              <td>{{ appointment.category }}</td>
-              <td>{{ appointment.doctor }}</td>
-              <td>
-                <button @click="deleteAppointment(appointment.id)">Cancel</button>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="addApp-container">
-          <button class="addApp" @click="addAppointment">Add Appointment</button>
-          <!-- <img src="../assets/images/man_avatar.PNG"> -->
-        </div>
-      </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        patient: {
-          name: 'John Doe',
-          age: 30,
-          gender: 'M',
-          email: 'john.doe@example.com',
-          phone: '123-456-7890'
-        },
-        genders: {
-          M: 'Male',
-          F: 'Female'
-        },
-        appointments: [
-          {
-            id: 1,
-            date: '2024-06-01',
-            time: '10:00 AM',
-            category: 'Dental Checkup',
-            doctor: 'Dr. Smith'
-          },
-          {
-            id: 2,
-            date: '2024-06-15',
-            time: '02:00 PM',
-            category: 'Cleaning',
-            doctor: 'Dr. Doe'
-          }
-        ]
-      };
-    },    computed: {
-        // avatarSrc() {
-        //   return this.patient.gender === 'F' ? '../assets/images/man_avatar.PNG' : '../assets/images/man_avatar.PNG';
-          
-        // }
-      },
-    methods: {
-      addAppointment() {
-        // Logic to add an appointment
-        console.log("Adding appointment...");
-      },
-      deleteAppointment(id) {
-        // Logic to delete an appointment
-        console.log("Deleting appointment with ID:", id);
-        this.appointments = this.appointments.filter(app => app.id !== id);
-      }
-    }
-  };
-  </script>
-  
-  <style>
-          * {
-              margin: 0;
-              padding: 0;
-              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-          }
-  
-          .sticky {
-              position: -webkit-sticky;
-              position: sticky;
-              top: 0;
-              height: 75px;
-              align-items: center;
-              background-color: rgb(111, 146, 177);
-          }
-  
-          nav {
-              width: 100%;
-              height: 50px;
-              background-color: transparent;
-              line-height: 50px;
-          }
-  
-          nav ul {
-              float: right;
-              margin-right: 30px;
-          }
-  
-          nav ul li {
-              list-style-type: none;
-              display: inline-block;
-              transition: 0.7s all;
-              margin-top: 10px;
-              align-items: center;
-          }
-  
-          nav ul li:hover {
-              background-color: rgba(13, 19, 68, 0.827);
-          }
-  
-          nav ul li a:hover {
-              color: white;
-          }
-  
-          nav ul li a {
-              text-decoration: none;
-              color: rgba(13, 19, 68, 0.827);
-              padding: 20px;
-              font-size: 18px;
-              font-weight: normal;
-          }
-  
-          .navLogo {
-              position: fixed;
-              top: 1%;
-              left: 50px;
-              width: 260px;
-              height: 80px;
-              float: left;
-          }
-  
-          .image-li .navLogo {
-              display: inline-block;
-          }
-  
-          .bookApp {
-              display: block;
-              width: auto;
-              padding: 5px 40px 5px 40px;
-              border-radius: 5px;
-              box-shadow: 0px 3px 5px;
-              margin-left: 65px;
-              background-color: #fff;
-              position: absolute;
-              top: 65vh;
-          }
-  
-          nav a {
-              font-weight: bold;
-              font-size: 20px;
-              text-decoration: none;
-              color: rgba(13, 19, 68, 0.827);
-          }
-  
-          a button {
-              font-weight: bold;
-              font-size: 22px;
-              text-decoration: none;
-              cursor: pointer;
-              color: #fff;
-              text-align: center;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              width: auto;
-              height: 60px;
-              padding: 5px 30px 5px 30px;
-              border-radius: 5px;
-              box-shadow: 2px 5px 10px #888;
-              margin: auto;
-              margin-top: 80px;
-              background-color: rgba(13, 19, 68, 0.915);
-          }
-  
-          a {
-              text-decoration: none;
-          }
-  
-        .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 50px;
-     }
-  
-     .title {
-      padding-top: 30px;
-        text-align: center;
-        margin-bottom: 30px;
-     }
-  
-     .pInfo {
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        background-color: rgba(255,255,255,.5);
-     }
-  
-     .pInfo img {
-        width: 150px;
-        height: auto;
-        margin-right: 20px;
-     }
-  
-  
-  
-  
-     .info th {
-        text-align: left;
-        width: 150px;
-        padding-right: 10px;
-     }
-  
-  
-     .addApp-container {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-     }
-  
-     .addApp {
-      width: 200px;
-      background-color: #627ea8;
-      color: #ffffff;
-      border: none;
-      padding: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 4px;
-      margin: 0 auto;
-      display: inline-block
-     }
-  
-     .addApp:hover {
-          text-decoration: underline;
-          color: #215f83;
-     }
-  
-     body{
-          background-image: url(../assets/images/myAppBg.jpg);
-          
-          
-     }
-  
-  
-     table{
-        justify-content: center;
-        margin: auto;
-        border-collapse: collapse;
-        
-        
-     }
-  
-     .info table{
-      border:none;
-     }
-  
-     
-  
-     .appointmentList table,th,td{
-      padding: 10px;
-      
-     }
-  
-     .appointmentList th,.appointmentList td{
-      border: solid 2px black;
-     }
-  
-     .appointmentList{
-      padding-top: 30px;
-     }
-  
-  
-      </style>
+button#cancel svg:hover {
+  background-color: rgba(255, 0, 0, 0.481);
+}
+</style>
