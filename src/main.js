@@ -9,8 +9,9 @@ import NavBar from './components/NavBar.vue'
 import AddAppoint_User from './components/AddAppoint_User.vue'
 import { createRouter, createWebHistory } from 'vue-router';
 import SignUp from './components/SignUp.vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
+import BootstrapVue3 from 'bootstrap-vue-3';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue-3/dist/bootstrap-vue-3.css';
 import NavBarLoggedIn from './components/NavBar-LoggedIn.vue'
 
 
@@ -36,11 +37,12 @@ const router = createRouter({
   });
 
 
-const app = createApp(App).use(bootstrap);
+const app = createApp(App);
 app.component('nav-bar', NavBar);
 app.component('nav-bar-logged', NavBarLoggedIn);
 app.component('UserDashboard', UserDashboard);
 app.component('UserLogin', UserLogin);
 app.component('SignUp', SignUp);
 app.use(router)
+app.use(BootstrapVue3)
 app.mount('#app')
