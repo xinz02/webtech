@@ -6,13 +6,26 @@
                 <li><a href= "/#about">ABOUT US</a></li>
                 <li><a href="/#services">SERVICES</a></li>
                 <li><a href="/#contact">CONTACT US</a></li>
-                <li><a href="#">MY APPOINTMENT</a></li>
-                <li><a href="/">LOG OUT</a></li>
+                <li><a href="/apptListPatient">MY APPOINTMENT</a></li>
+                <li><a href="/" @click="logout">LOG OUT</a></li>
                 <li class="image-li"><img class="navLogo" src="../assets/images/logo-removebg.png" alt="ProCare Dental Clinic"></li>
             </ul>
         </nav>
     </div>
 </template>
+
+<script>
+export default{
+    methods:{
+        logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userID');
+            localStorage.removeItem('username');
+            localStorage.removeItem('category');
+        }
+    }
+}
+</script>
 
 <style scoped>
 *{

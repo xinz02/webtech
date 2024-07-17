@@ -1,5 +1,23 @@
 <template>
-        <div class="navbar">
+        <div class="navbar" v-if="isLoggedIn">
+            <nav-bar-logged></nav-bar-logged>
+            <!-- <nav class="sticky" id="sticky">
+                <ul>
+                    <li><router-link to="/">HOME</router-link></li>
+                    <li><a href= "#about">ABOUT US</a></li>
+                    <li><a href="#services">SERVICES</a></li>
+                    <li><a href="#contact">CONTACT US</a></li>
+                    <li><router-link to="/login">MY APPOINTMENT</router-link></li>
+                    <li><router-link to="/login">LOG IN</router-link></li>
+                    <li class="image-li"><img class="navLogo" src="../assets/images/logo-removebg.png" alt="ProCare Dental Clinic"></li>
+                </ul>
+            </nav> -->
+            <nav class="bookApp">
+                <router-link to="/apptListPatient">BOOK AN APPOINTMENT</router-link>
+            </nav>
+        </div>
+
+        <div class="navbar" v-else>
             <nav-bar></nav-bar>
             <!-- <nav class="sticky" id="sticky">
                 <ul>
@@ -16,6 +34,7 @@
                 <router-link to="/login">BOOK AN APPOINTMENT</router-link>
             </nav>
         </div>
+
 
 
         <div class="about" id="about">
@@ -135,7 +154,35 @@
         </div>
 </template>
 
+<script>
+import {jwtDecode} from 'jwt-decode';
 
+export default {
+    data() {
+        return {
+            token: localStorage.getItem('token') ?? ''
+        }
+    },
+    computed: {
+        isLoggedIn() {
+            try {
+                const token = localStorage.getItem('token');
+                console.log(token);
+                if(!token) {
+                    return false;
+                } else {
+                    const decodedToken = jwtDecode(token);
+                    const currentTime = Date.now() / 1000;
+                    return decodedToken.exp > currentTime;
+                }
+            }
+            catch(error) {
+                return false;
+            }
+        }
+    }
+}
+</script>
 
 <style scoped>
 

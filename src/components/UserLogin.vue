@@ -1,6 +1,7 @@
 <template>
   <body>
-    <form action="" method="post">
+    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+    <form @submit.prevent="login">
       <div class="d-flex align-items-center justify-content-center vh-100">
         <div class="login-container">
           <h1 class="my-5 fw-bold">LOGIN</h1>
@@ -13,7 +14,7 @@
             </label>
             </div>
             <div class="col-10 p-0">
-              <input type="text" id="username" name="username" required placeholder="Username" class="py-2 px-3">
+              <input type="text" v-model="username" id="username" name="username" required placeholder="Username" class="py-2 px-3">
             </div>
           </div>
 
@@ -26,7 +27,7 @@
               </label>
             </div>
             <div class="col-10 p-0">
-              <input type="password" id="password" name="password" required placeholder="Password" class="py-2 px-3">
+              <input type="password" v-model="password" id="password" name="password" required placeholder="Password" class="py-2 px-3">
             </div>
           </div>
 
@@ -44,12 +45,62 @@
 </template>
 
 <script>
+import { jwtDecode } from 'jwt-decode';
+
 export default {
-  name: 'UserLogin'
+  // name: 'UserLogin'
+  data() {
+    return {
+      username: '',
+      password: '',
+      errorMessage: '',
+      token: localStorage.getItem('token') ?? ''
+    }
+  },
+  methods: {
+    async login() {
+      try{
+        const response = await fetch("http://localhost:8080/login", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({username: this.username, password: this.password})
+        });
+        
+        const data = await response.json();
+        if(response.ok) {
+          console.log(data.token);
+          this.token = data.token;
+          localStorage.setItem('token', this.token);
+
+          const decodedToken = jwtDecode(this.token);
+          const uid = decodedToken.userID;
+          const uname = decodedToken.username;
+          const ucategory = decodedToken.category;
+          
+          localStorage.setItem('userID', uid);
+          localStorage.setItem('username', uname);
+          localStorage.setItem('category', ucategory);
+          // if(decodedToken.category == 1) {
+            this.$router.push('/');
+          
+        } else {
+          this.errorMessage = data.error ?? 'Wrong Username or Password.';
+        }
+      } catch (error) {
+        this.errorMessage = 'Login failed. Please try again later.';
+      }
+    }
+  }
 };
 </script>
 
 <style scoped>
+  .error {
+    color: red;
+  }
+
   body {
     width: 100%;
     height: 100vh;
