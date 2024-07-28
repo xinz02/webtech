@@ -47,14 +47,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="appointment in appointments" :key="appointment.id">
+            <tr v-for="appointment in appointments" :key="appointment.appointmentID">
               <td class="align-middle">{{ appointment.appointmentID }}</td>
               <td class="align-middle">{{ appointment.appointmentDate }}</td>
               <td class="align-middle">{{ appointment.appointmentTime }}</td>
               <td class="align-middle">{{ appointment.appointment_category }}</td>
               <td class="align-middle">{{ dentists[appointment.dentistID] }}</td>
               <td class="align-middle">
-                <button @click="confirmDeleteAppointment(appointment.id)" id="cancel">
+                <button @click="confirmDeleteAppointment(appointment.appointmentID)" id="cancel">
                   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-x-square" viewBox="0 0 16 16">
                     <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
@@ -109,8 +109,7 @@ export default {
       try {
         // Fetch user info and appointments
         const { data } = await axios.get(`http://localhost:8080/user/${userId}/appointments`);
-        // const data = await fetch(`http://localhost:8080/user/${userId}/appointments`);
-        console.log(data)
+        console.log(data);
         
         if (data.user) {
           this.patient = data.user;
@@ -125,15 +124,19 @@ export default {
     redirectToAddPage() {
       this.$router.push({ path: '/addAppointment' });
     },
-    confirmDeleteAppointment(id) {
+    confirmDeleteAppointment(appointmentID) {
       if (window.confirm('Are you sure you want to cancel this appointment?')) {
-        this.deleteAppointment(id);
+        this.deleteAppointment(appointmentID);
       }
     },
-    deleteAppointment(id) {
-      // Logic to delete an appointment
-      console.log("Deleting appointment with ID:", id);
-      this.appointments = this.appointments.filter(app => app.id !== id);
+    async deleteAppointment(appointmentID) {
+      try {
+        await axios.delete(`http://localhost:8080/appointment/${appointmentID}`);
+        // Remove appointment from local state
+        this.appointments = this.appointments.filter(appointment => appointment.appointmentID !== appointmentID);
+      } catch (error) {
+        console.error('Error deleting appointment:', error);
+      }
     }
   }
 };
@@ -144,7 +147,7 @@ body {
   height: 100vh;
   margin: 0;
   width: 100%;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .container-fluid {
