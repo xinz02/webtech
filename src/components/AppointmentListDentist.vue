@@ -57,11 +57,12 @@
             </tr>
             <tr v-for="(appointment, index) in appointments" :key="index">
               <td class="align-middle">{{ index + 1 }}</td>
-              <td class="align-middle">{{ appointment.date }}</td>
-              <td class="align-middle">{{ appointment.time }}</td>
-              <td class="align-middle">{{ appointment.category }}</td>
+              <td class="align-middle">{{ appointment.appointmentDate }}</td>
+              <td class="align-middle">{{ appointment.appointmentTime }}</td>
+              <td class="align-middle">{{ appointment.appointment_category }}</td>
               <td class="align-middle">
                 <a :href="'viewpatientinfo_dentist.php?userID=' + appointment.userID" target="_blank" class="me-5 viewInfo">
+                  <!-- <a href="/patientInfo" target="_blank" class="me-5 viewInfo"> -->
                   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="green" class="bi bi-info-square" viewBox="0 0 16 16">
                     <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
                     <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
@@ -89,41 +90,114 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
-      dentist: {
-        name: 'John Doe',
-        specialization: 'Dentistry',
-        phone: '123-456-7890',
-        email: 'john.doe@example.com',
-        gender: 'M'
-      },
+      dentist: {},
       genders: {
         M: 'Male',
         F: 'Female'
       },
-      appointments: [
-        {
-          id: 1,
-          date: '2024-06-01',
-          time: '10:00 AM',
-          category: 'Dental Checkup',
-          userID: 123,
-          appointmentID: 456
-        },
-        {
-          id: 2,
-          date: '2024-06-15',
-          time: '02:00 PM',
-          category: 'Cleaning',
-          userID: 456,
-          appointmentID: 789
-        }
-      ]
+      appointments: [],
+     
+      // dentist: {
+      //   name: 'John Doe',
+      //   specialization: 'Dentistry',
+      //   phone: '123-456-7890',
+      //   email: 'john.doe@example.com',
+      //   gender: 'M'
+      // },
+      // genders: {
+      //   M: 'Male',
+      //   F: 'Female'
+      // },
+      // appointments: [
+      //   {
+      //     id: 1,
+      //     date: '2024-06-01',
+      //     time: '10:00 AM',
+      //     category: 'Dental Checkup',
+      //     userID: 123,
+      //     appointmentID: 456
+      //   },
+      //   {
+      //     id: 2,
+      //     date: '2024-06-15',
+      //     time: '02:00 PM',
+      //     category: 'Cleaning',
+      //     userID: 456,
+      //     appointmentID: 789
+      //   }
+      // ]
+
     };
   },
+  created() {
+    this.fetchDentistData();
+  },
+  // methods: {
+  //   async fetchUserData() {
+  //     const userId = localStorage.getItem('userID'); // Get user ID from localStorage
+  //     if (!userId) {
+  //       console.error('User ID not found in localStorage.');
+  //       return;
+  //     }
+
+  //     try {
+  //       // Fetch user info and appointments
+  //       const { data } = await axios.get(`http://localhost:8080/user/${userId}/appointments`);
+  //       // const data = await fetch(`http://localhost:8080/user/${userId}/appointments`);
+  //       console.log(data)
+        
+  //       if (data.user) {
+  //         this.patient = data.user;
+  //       }
+  //       if (data.appointments) {
+  //         this.appointments = data.appointments;
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching user data:', error);
+  //     }
+  //   },
+  //   redirectToAddPage() {
+  //     this.$router.push({ path: '/addAppointment' });
+  //   },
+  //   confirmDeleteAppointment(id) {
+  //     if (window.confirm('Are you sure you want to cancel this appointment?')) {
+  //       this.deleteAppointment(id);
+  //     }
+  //   },
+  //   deleteAppointment(id) {
+  //     // Logic to delete an appointment
+  //     console.log("Deleting appointment with ID:", id);
+  //     this.appointments = this.appointments.filter(app => app.id !== id);
+  //   }
+  // }
   methods: {
+    async fetchDentistData() {
+      const userId = localStorage.getItem('userID'); // Get user ID from localStorage
+      if (!userId) {
+        console.error('User ID not found in localStorage.');
+        return;
+      }
+
+      try {
+        // Fetch user info and appointments
+        const { data } = await axios.get(`http://localhost:8080/dentist/${userId}/appointments`);
+        // const data = await fetch(`http://localhost:8080/user/${userId}/appointments`);
+        console.log(data)
+        
+        if (data.user) {
+          this.dentist = data.user;
+        }
+        if (data.appointments) {
+          this.appointments = data.appointments;
+        }
+      } catch (error) {
+        console.error('Error fetching dentist data:', error);
+      }
+    },
     returnToAppList() {
       window.location.href = "/";
     }

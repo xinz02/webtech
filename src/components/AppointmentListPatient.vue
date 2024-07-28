@@ -48,11 +48,11 @@
           </thead>
           <tbody>
             <tr v-for="appointment in appointments" :key="appointment.id">
-              <td class="align-middle">{{ appointment.id }}</td>
-              <td class="align-middle">{{ appointment.date }}</td>
-              <td class="align-middle">{{ appointment.time }}</td>
-              <td class="align-middle">{{ appointment.category }}</td>
-              <td class="align-middle">{{ appointment.doctor }}</td>
+              <td class="align-middle">{{ appointment.appointmentID }}</td>
+              <td class="align-middle">{{ appointment.appointmentDate }}</td>
+              <td class="align-middle">{{ appointment.appointmentTime }}</td>
+              <td class="align-middle">{{ appointment.appointment_category }}</td>
+              <td class="align-middle">{{ dentists[appointment.dentistID] }}</td>
               <td class="align-middle">
                 <button @click="confirmDeleteAppointment(appointment.id)" id="cancel">
                   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-x-square" viewBox="0 0 16 16">
@@ -85,7 +85,14 @@ export default {
         M: 'Male',
         F: 'Female'
       },
-      appointments: []
+      appointments: [],
+      dentists: {
+        1: 'Dr. Kenny Chiang',
+        2: 'Dr. Roziana binti Kamil',
+        3: 'Dr. Joanne Leow',
+        4: 'Dr. Yang Chin Peng',
+        5: 'Dr. Kandiah'
+      }
     };
   },
   created() {
@@ -101,7 +108,9 @@ export default {
 
       try {
         // Fetch user info and appointments
-        const { data } = await axios.get(`/user/${userId}/appointments`);
+        const { data } = await axios.get(`http://localhost:8080/user/${userId}/appointments`);
+        // const data = await fetch(`http://localhost:8080/user/${userId}/appointments`);
+        console.log(data)
         
         if (data.user) {
           this.patient = data.user;

@@ -6,7 +6,8 @@
                 <li><a href= "/#about">ABOUT US</a></li>
                 <li><a href="/#services">SERVICES</a></li>
                 <li><a href="/#contact">CONTACT US</a></li>
-                <li><a href="/apptListPatient">MY APPOINTMENT</a></li>
+                <li v-if="category==1"><a href="/apptListPatient">MY APPOINTMENT</a></li>
+                <li v-else><a href="/apptListDentist">MY APPOINTMENT</a></li>
                 <li><a href="/" @click="logout">LOG OUT</a></li>
                 <li class="image-li"><img class="navLogo" src="../assets/images/logo-removebg.png" alt="ProCare Dental Clinic"></li>
             </ul>
@@ -16,6 +17,11 @@
 
 <script>
 export default{
+    data() {
+        return {
+            category: localStorage.getItem('category') ?? ''
+        }
+    },
     methods:{
         logout() {
             localStorage.removeItem('token');

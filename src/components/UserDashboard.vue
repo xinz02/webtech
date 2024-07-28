@@ -1,41 +1,23 @@
 <template>
         <div class="navbar" v-if="isLoggedIn">
             <nav-bar-logged></nav-bar-logged>
-            <!-- <nav class="sticky" id="sticky">
-                <ul>
-                    <li><router-link to="/">HOME</router-link></li>
-                    <li><a href= "#about">ABOUT US</a></li>
-                    <li><a href="#services">SERVICES</a></li>
-                    <li><a href="#contact">CONTACT US</a></li>
-                    <li><router-link to="/login">MY APPOINTMENT</router-link></li>
-                    <li><router-link to="/login">LOG IN</router-link></li>
-                    <li class="image-li"><img class="navLogo" src="../assets/images/logo-removebg.png" alt="ProCare Dental Clinic"></li>
-                </ul>
-            </nav> -->
-            <nav class="bookApp">
+           
+            <nav class="bookApp" v-if="category==1">
                 <router-link to="/apptListPatient">BOOK AN APPOINTMENT</router-link>
+            </nav>
+
+            <nav class="bookApp" v-else>
+                <router-link to="/apptListDentist">VIEW ALL APPOINTMENT</router-link>
             </nav>
         </div>
 
         <div class="navbar" v-else>
             <nav-bar></nav-bar>
-            <!-- <nav class="sticky" id="sticky">
-                <ul>
-                    <li><router-link to="/">HOME</router-link></li>
-                    <li><a href= "#about">ABOUT US</a></li>
-                    <li><a href="#services">SERVICES</a></li>
-                    <li><a href="#contact">CONTACT US</a></li>
-                    <li><router-link to="/login">MY APPOINTMENT</router-link></li>
-                    <li><router-link to="/login">LOG IN</router-link></li>
-                    <li class="image-li"><img class="navLogo" src="../assets/images/logo-removebg.png" alt="ProCare Dental Clinic"></li>
-                </ul>
-            </nav> -->
+            
             <nav class="bookApp">
                 <router-link to="/login">BOOK AN APPOINTMENT</router-link>
             </nav>
         </div>
-
-
 
         <div class="about" id="about">
             <div class="container_about">
@@ -160,7 +142,8 @@ import {jwtDecode} from 'jwt-decode';
 export default {
     data() {
         return {
-            token: localStorage.getItem('token') ?? ''
+            token: localStorage.getItem('token') ?? '',
+            category: localStorage.getItem('category') ?? ''
         }
     },
     computed: {
@@ -173,7 +156,9 @@ export default {
                 } else {
                     const decodedToken = jwtDecode(token);
                     const currentTime = Date.now() / 1000;
+                
                     return decodedToken.exp > currentTime;
+                   
                 }
             }
             catch(error) {
