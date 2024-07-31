@@ -48,8 +48,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(appointment,index) in appointments" :key="appointment.appointmentID">
-              <td class="align-middle">{{ index + 1 }}</td>
+            <tr v-for="appointment in appointments" :key="appointment.appointmentID">
+              <td class="align-middle">{{ appointment.appointmentID }}</td>
               <td class="align-middle">{{ appointment.appointmentDate }}</td>
               <td class="align-middle">{{ appointment.appointmentTime }}</td>
               <td class="align-middle">{{ appointment.appointment_category }}</td>
