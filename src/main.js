@@ -21,9 +21,9 @@ const router = createRouter({
         { path: '/login', component: UserLogin },
         { path: '/signup', component: SignUp },
         { path: '/addAppointment', component: AddAppointUser },
-        { path: '/patientInfo', component: ViewPatientInfo },
-        { path: '/apptListPatient', component: AppointmentListPatient },
-        { path: '/apptListDentist', component: AppointmentListDentist }
+        { path: '/patient/:userID', component: ViewPatientInfo, props: true }, 
+        { path: '/patient/appointments', component: AppointmentListPatient },
+        { path: '/dentist/appointments', component: AppointmentListDentist },
     ]
 });
 

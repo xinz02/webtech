@@ -7,13 +7,8 @@
             <h1 class="my-5 fw-bold">BOOK APPOINTMENT</h1>
   
             <!-- Dentist Selection -->
-            <div class="booking-field row mx-3">
-              <div class="col-2">
-                <label for="dentist">
-                  <!-- Icon omitted for brevity -->
-                </label>
-              </div>
-              <div class="col-10 p-0">
+            <div class="booking-field row mx-5">
+              <div class="col justify-content-center d-flex">
                 <select v-model="selectedDentist" id="dentist" name="dentist" required class="py-2 px-3">
                   <option value="" selected disabled>Choose A Dentist</option>
                   <option v-for="dentist in dentists" :key="dentist.id" :value="dentist.id + '|' + dentist.category">
@@ -24,25 +19,15 @@
             </div>
   
             <!-- Date Selection -->
-            <div class="booking-field row mx-3">
-              <div class="col-2">
-                <label for="date">
-                  <!-- Icon omitted for brevity -->
-                </label>
-              </div>
-              <div class="col-10 p-0">
+            <div class="booking-field row mx-5">
+              <div class="col justify-content-center d-flex">
                 <input type="date" v-model="appointmentDate" id="date" name="date" required placeholder="Choose An Appointment Date" class="py-2 px-3">
               </div>
             </div>
   
             <!-- Time Selection -->
-            <div class="booking-field row mx-3">
-              <div class="col-2">
-                <label for="time">
-                  <!-- Icon omitted for brevity -->
-                </label>
-              </div>
-              <div class="col-10 p-0">
+            <div class="booking-field row mx-5">
+              <div class="col justify-content-center d-flex">
                 <select v-model="appointmentTime" id="time" name="time" required class="py-2 px-3">
                   <option value="" selected disabled>Select Appointment Time</option>
                   <option v-for="time in times" :key="time" :value="time">{{ time }}</option>
@@ -51,12 +36,12 @@
             </div>
   
             <!-- Submit Button -->
-            <div class="booking-field mx-3 mt-2 pb-4">
+            <div class="booking-field row mx-5 mt-2 pb-4">
               <input type="submit" value="Book Appointment">
             </div>
   
             <!-- Return to Home -->
-            <div class="booking-field mx-3 p-0 mb-5">
+            <div class="booking-field row mx-5">
               <p><a href="/"><strong>Return to Home</strong></a></p>
             </div>
           </div>
@@ -122,7 +107,7 @@
   
           if (response.ok) {
             alert('Appointment booked successfully!');
-            this.$router.push('/');
+            this.$router.push('/patient/appointments');
           } else {
             this.errorMessage = data.error || 'Failed to book appointment. Please try again.';
           }
@@ -185,7 +170,7 @@
   }
   
   .booking-field {
-    width: 28vw;
+    width: 40vw;
     max-width: auto;
     min-width: auto;
     padding-bottom: 2em;

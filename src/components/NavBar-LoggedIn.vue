@@ -6,8 +6,8 @@
                 <li><a href= "/#about">ABOUT US</a></li>
                 <li><a href="/#services">SERVICES</a></li>
                 <li><a href="/#contact">CONTACT US</a></li>
-                <li v-if="category==1"><a href="/apptListPatient">MY APPOINTMENT</a></li>
-                <li v-else><a href="/apptListDentist">MY APPOINTMENT</a></li>
+                <li v-if="category==1"><a href="/patient/appointments">MY APPOINTMENT</a></li>
+                <li v-else><a href="/dentist/appointments">MY APPOINTMENT</a></li>
                 <li><a href="/" @click="logout">LOG OUT</a></li>
                 <li class="image-li"><img class="navLogo" src="../assets/images/logo-removebg.png" alt="ProCare Dental Clinic"></li>
             </ul>
@@ -35,8 +35,6 @@ export default{
 
 <style scoped>
 *{
-    margin:0;
-    padding:0;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
@@ -58,7 +56,6 @@ export default{
 nav
 {
     width: 100%;
-    height: 70px;
     line-height: 50px;
     background-color: rgb(111, 146, 177);
     box-shadow: 0px 3px 4px;

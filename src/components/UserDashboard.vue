@@ -15,7 +15,7 @@
             <nav-bar></nav-bar>
             
             <nav class="bookApp">
-                <router-link to="/login">BOOK AN APPOINTMENT</router-link>
+                <router-link to="/apptListPatient">BOOK AN APPOINTMENT</router-link>
             </nav>
         </div>
 
@@ -80,7 +80,7 @@
                 <p>Seeking exceptional dental treatments with minimal wait times? 
                     Reserve your preferred time slot, effortlessly walk in at your appointed time, 
                     and receive prioritized treatments without any additional charges.</p>
-                    <router-link to="/login"><button class="btn">Reserve My Slot Now!</button></router-link>
+                    <router-link to="/apptListPatient"><button class="btn">Reserve My Slot Now!</button></router-link>
                 </div>
                 <img src="../assets/images/Reserve.jpg" alt="Reserve a slot!">
             </div>

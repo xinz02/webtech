@@ -3,7 +3,7 @@
     <nav-bar-logged></nav-bar-logged>
     <div class="container-fluid p-0 d-flex">
       <div class="pInfo col-3">
-        <h4 class="fw-bold text-start mt-2 mb-3">Dentist Infomation</h4>
+        <h4 class="fw-bold text-start mt-2 mb-3">Dentist Information</h4>
         <hr>
         <div class="my-5 text-center">
           <img v-if="dentist.gender == 'F'" src="../assets/images/women_avatar.png">
@@ -53,44 +53,50 @@
           </thead>
           <tbody>
             <tr v-if="appointments.length === 0">
-              <td align="center" colspan="5">---No appointment yet---</td>
+              <td class="align-center" colspan="5">---No appointment yet---</td>
             </tr>
-            <tr v-for="(appointment, index) in appointments" :key="index">
+            <tr v-for="(appointment, index) in appointments" :key="appointment.appointmentID">
               <td class="align-middle">{{ index + 1 }}</td>
               <td class="align-middle">{{ appointment.appointmentDate }}</td>
               <td class="align-middle">{{ appointment.appointmentTime }}</td>
               <td class="align-middle">{{ appointment.appointment_category }}</td>
               <td class="align-middle">
-                <a :href="'viewpatientinfo_dentist.php?userID=' + appointment.userID" target="_blank" class="me-5 viewInfo">
-                  <!-- <a href="/patientInfo" target="_blank" class="me-5 viewInfo"> -->
+                <button @click="viewPatientInfo(appointment.userID)" class="me-5 viewInfo">
                   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="green" class="bi bi-info-square" viewBox="0 0 16 16">
                     <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
                     <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
                   </svg>
-                </a>
-                <a :href="'add_comment.php?appointmentID=' + appointment.appointmentID" class="comment">
+                </button>
+                <button @click="showCommentModal(appointment)" class="comment">
                   <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="darkblue" class="bi bi-chat-square-text" viewBox="0 0 16 16">
                     <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
                     <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
                   </svg>
-                </a>
+                </button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
+    </div>
 
-      <button class="addApp me-3 mb-2" @click="returnToAppList">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-arrow-left" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
-        </svg>
-      </button>
+    <!--comment modal-->
+    <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
+      <div class="modal">
+        <h4 class="fw-bold mb-4">Comment</h4>
+        <textarea v-model="currentComment.descriptions" rows="4" cols="50"></textarea>
+        <div class="modal-buttons mt-3">
+          <button @click="saveComment" class="save">Save</button>
+          <button @click="closeModal" class="cancel">Cancel</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -100,80 +106,17 @@ export default {
         F: 'Female'
       },
       appointments: [],
-     
-      // dentist: {
-      //   name: 'John Doe',
-      //   specialization: 'Dentistry',
-      //   phone: '123-456-7890',
-      //   email: 'john.doe@example.com',
-      //   gender: 'M'
-      // },
-      // genders: {
-      //   M: 'Male',
-      //   F: 'Female'
-      // },
-      // appointments: [
-      //   {
-      //     id: 1,
-      //     date: '2024-06-01',
-      //     time: '10:00 AM',
-      //     category: 'Dental Checkup',
-      //     userID: 123,
-      //     appointmentID: 456
-      //   },
-      //   {
-      //     id: 2,
-      //     date: '2024-06-15',
-      //     time: '02:00 PM',
-      //     category: 'Cleaning',
-      //     userID: 456,
-      //     appointmentID: 789
-      //   }
-      // ]
-
+      currentAppointment: null,
+      currentComment: {
+        appointmentID: null,
+        descriptions: ''
+      },
+      showModal: false
     };
   },
   created() {
     this.fetchDentistData();
   },
-  // methods: {
-  //   async fetchUserData() {
-  //     const userId = localStorage.getItem('userID'); // Get user ID from localStorage
-  //     if (!userId) {
-  //       console.error('User ID not found in localStorage.');
-  //       return;
-  //     }
-
-  //     try {
-  //       // Fetch user info and appointments
-  //       const { data } = await axios.get(`http://localhost:8080/user/${userId}/appointments`);
-  //       // const data = await fetch(`http://localhost:8080/user/${userId}/appointments`);
-  //       console.log(data)
-        
-  //       if (data.user) {
-  //         this.patient = data.user;
-  //       }
-  //       if (data.appointments) {
-  //         this.appointments = data.appointments;
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching user data:', error);
-  //     }
-  //   },
-  //   redirectToAddPage() {
-  //     this.$router.push({ path: '/addAppointment' });
-  //   },
-  //   confirmDeleteAppointment(id) {
-  //     if (window.confirm('Are you sure you want to cancel this appointment?')) {
-  //       this.deleteAppointment(id);
-  //     }
-  //   },
-  //   deleteAppointment(id) {
-  //     // Logic to delete an appointment
-  //     console.log("Deleting appointment with ID:", id);
-  //     this.appointments = this.appointments.filter(app => app.id !== id);
-  //   }
-  // }
   methods: {
     async fetchDentistData() {
       const userId = localStorage.getItem('userID'); // Get user ID from localStorage
@@ -185,8 +128,7 @@ export default {
       try {
         // Fetch user info and appointments
         const { data } = await axios.get(`http://localhost:8080/dentist/${userId}/appointments`);
-        // const data = await fetch(`http://localhost:8080/user/${userId}/appointments`);
-        console.log(data)
+        console.log(data);
         
         if (data.user) {
           this.dentist = data.user;
@@ -198,16 +140,48 @@ export default {
         console.error('Error fetching dentist data:', error);
       }
     },
-    returnToAppList() {
-      window.location.href = "/";
+    async showCommentModal(appointment) {
+      this.currentAppointment = appointment;
+      this.currentComment.appointmentID = appointment.appointmentID;
+
+      try {
+        const response = await axios.get(`http://localhost:8080/appointment/${appointment.appointmentID}/comments`);
+        if (response.data && response.data.descriptions !== undefined) {
+          this.currentComment.descriptions = response.data.descriptions;
+        } else {
+          this.currentComment.descriptions = '';
+        }
+      } catch (error) {
+        console.error('Error fetching comment data:', error);
+      }
+
+      this.showModal = true;
+    },
+    async saveComment() {
+      try {
+        await axios.post(`http://localhost:8080/appointment/${this.currentComment.appointmentID}/comments`, {
+          description: this.currentComment.descriptions
+        });
+        alert('Comment saved successfully')
+        this.showModal = false;
+      } catch (error) {
+        alert('Comment cannot be empty')
+        console.error('Error saving comment:', error);
+      }
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+    viewPatientInfo(userID) {
+      this.$router.push(`/patient/${userID}`);
     }
-  }
+  },
 };
 </script>
 
+
 <style scoped>
 body {
-  height: 100vh;
   margin: 0;
   width: 100%;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -216,8 +190,8 @@ body {
 
 .container-fluid {
   display: flex;
-  margin-top: 75px;
-  height: calc(100vh - 75px);
+  margin-top: 55px;
+  height: calc(100vh - 55px);
 }
 
 .pInfo {
@@ -279,11 +253,59 @@ button {
   background: none;
 }
 
-a.viewInfo svg:hover {
+button.viewInfo svg:hover {
   cursor: pointer;
 }
 
-a.comment svg:hover {
+button.comment svg:hover {
   cursor: pointer;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: #fffffffc;
+  padding: 20px;
+  position: relative;
+  margin: auto;
+  width: auto;
+  height: auto;
+  flex-direction: column;;
+  justify-content: center;
+  border-radius: 5px;
+  z-index: 1001;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  color: #000;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.modal-buttons button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.modal-buttons button.save:hover {
+  background-color: #58c672;
+  color: #fff;
+}
+
+.modal-buttons button.cancel:hover {
+  background-color: #c13f3f;
+  color: #fff;
 }
 </style>
