@@ -48,8 +48,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="appointment in appointments" :key="appointment.appointmentID">
-              <td class="align-middle">{{ appointment.appointmentID }}</td>
+            <tr v-for="(appointment,index) in appointments" :key="appointment.appointmentID">
+              <td class="align-middle">{{ index + 1 }}</td>
               <td class="align-middle">{{ appointment.appointmentDate }}</td>
               <td class="align-middle">{{ appointment.appointmentTime }}</td>
               <td class="align-middle">{{ appointment.appointment_category }}</td>
@@ -131,14 +131,14 @@ export default {
       }
     },
     async deleteAppointment(appointmentID) {
-      try {
-        await axios.delete(`http://localhost:8080/appointment/${appointmentID}`);
-        // Remove appointment from local state
-        this.appointments = this.appointments.filter(appointment => appointment.appointmentID !== appointmentID);
-      } catch (error) {
-        console.error('Error deleting appointment:', error);
-      }
-    }
+        try {
+            await axios.delete(`http://localhost:8080/appointment/${appointmentID}`);
+            // Remove appointment from local state
+            this.appointments = this.appointments.filter(appointment => appointment.appointmentID !== appointmentID);
+        } catch (error) {
+            console.error('Error deleting appointment:', error);
+        }
+    },
   }
 };
 </script>
